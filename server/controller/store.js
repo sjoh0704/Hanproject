@@ -5,10 +5,12 @@ import * as storeRepository from '../data/store.js';
 
 
 export async function getProducts(req, res) {
+    console.log('어이없네');
     const username = req.query.username;
     const data = await (username
     ? storeRepository.getAllByUsername(username)
     : storeRepository.getAll()); 
+    console.log('data 는?',data);
     res.status(200).json(data);
 }
 
