@@ -25,13 +25,31 @@ export async function getAll() {
     return products
     }
 
+
+
 export async function getById(id) {
-    const found = products.filter((product) => product.seller_id === id);
-    if(!found){
+    const found = products.filter((product) => product.id === id);
+    if(!found){            
         return null;
     }
-    return {...found}
-}
+    return found
+    } 
+    // export async function getById(id) {
+    //     const found = products.filter((product) => product.id === id);
+    //     if(!found){
+    //         return null;
+    //     }
+    //     return {...found}
+    // }
+    
+    
+// export async function getById(id) {
+//     const found = products.filter((product) => product.seller_id === id);
+//     if(!found){
+//         return null;
+//     }
+//     return {...found}
+// }
 
 
 // export async function getById(id){

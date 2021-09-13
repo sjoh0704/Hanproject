@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Products from "./Products";
 
-const Home = ({ productService }) => {
+const Home = ({ productService, product_id }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
-  const username = undefined;
   useEffect(() => {
     productService
-      .getProducts(username)
+      .getProducts(product_id)
       .then(product => setProducts([...product]))
       .catch(onError);
-  }, [productService]);
+  }, [productService, product_id]);
 
   const onError = error => {
     setError(error.toString());
@@ -18,7 +17,6 @@ const Home = ({ productService }) => {
       setError("");
     }, 3000);
   };
-
   console.log("pro", products);
   return (
     <>

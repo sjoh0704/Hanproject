@@ -2,9 +2,9 @@ export default class ProductService {
     constructor(http) {
       this.http = http;
     }
-    async getProducts(username) {
-      const query = username ? `?username=${username}` : '';
-      return this.http.fetch(`/store${query}`, {
+    async getProducts(id) {
+      const query = id ? `${id}` : '';
+      return this.http.fetch(`/store/${query}`, {
         method: 'GET',
       });
     }
