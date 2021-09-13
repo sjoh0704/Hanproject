@@ -1,10 +1,14 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Products = memo(({ product }) => {
+const Products = memo(({ product, productService }) => {
   const { id, seller_id, name, price, description } = product;
   const path = "/" + id;
   console.log(path);
+  const onClick = async event => {
+    event.preventDefault();
+    productService.plusProduct(id);
+  };
   return (
     <>
       <section class="card">
@@ -19,6 +23,7 @@ const Products = memo(({ product }) => {
           </div>
         </Link>
       </section>
+      <button onClick={onClick}>입찰하기</button>
 
       {/* <div>
         <img src="/logo192.png"></img>

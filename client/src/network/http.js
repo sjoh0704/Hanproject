@@ -18,6 +18,7 @@ export default class HttpClient {
       } catch (error) {
         console.error(error);
       }
+      console.log('data',data);
       if (res.status > 299 || res.status < 200) {
         const message =
           data && data.message ? data.message : 'Something went wrong! 🤪';

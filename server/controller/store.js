@@ -32,8 +32,12 @@ export async function createProduct(req, res){
 }
 
 export async function plusProduct(req, res){
-    const {buyer_id, id, price} = req.body;
-
-    const updated = await storeRepository.update(buyer_id, id, price);
+    const id = req.params.id;
+    const product = await storeRepository.getById(id);
+    if(!product){
+        return res.status(404).json({ message: `Pr not found: ${id}` });
+    }
+    console.log('리퀘스트',req, '아이디',id);
+    const updated = await storeRepository.update(id);
     res.status(200).json(updated);
 }

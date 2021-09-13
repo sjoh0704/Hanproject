@@ -22,7 +22,11 @@ const Home = ({ productService, product_id }) => {
     <>
       <ul>
         {products.map(product => (
-          <Products key={product.id} product={product} />
+          <Products
+            productService={productService}
+            key={product.id}
+            product={product}
+          />
         ))}
       </ul>
     </>

@@ -30,10 +30,10 @@ export default class ProductService {
       });
     }
   
-    async updateProduct(productId, text) {
+    async plusProduct(productId) {
+      console.log('"id"' , );
       return this.http.fetch(`/store/${productId}`, {
         method: 'PUT',
-        body: JSON.stringify({ text }),
       });
     }
   
