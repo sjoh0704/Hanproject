@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Products from "./Products";
 
 const Home = ({ productService, product_id }) => {
@@ -17,9 +18,13 @@ const Home = ({ productService, product_id }) => {
       setError("");
     }, 3000);
   };
+
   console.log("pro", products);
   return (
     <>
+      <Link to="/productadd">
+        <button>상품등록하기</button>
+      </Link>
       <ul>
         {products.map(product => (
           <Products

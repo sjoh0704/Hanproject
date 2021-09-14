@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import AllProducts from "./pages/AllProducts";
+import Productadd from "./pages/ProductAdd";
 import ThisProducts from "./pages/ThisProducts";
 
 const App = ({ productService }) => {
@@ -12,8 +13,11 @@ const App = ({ productService }) => {
           <Route exact path="/">
             <AllProducts productService={productService} />;
           </Route>
+          <Route exact path="/productadd">
+            <Productadd productService={productService} />;
+          </Route>
           <Route exact path="/:id">
-            <h1>zz</h1>
+            <h1>zza</h1>
             <ThisProducts productService={productService} />;
           </Route>
         </Switch>

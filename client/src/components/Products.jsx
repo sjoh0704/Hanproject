@@ -8,11 +8,15 @@ const Products = memo(({ product, productService }) => {
   const Plus = async event => {
     // event.preventDefault();
     productService.plusProduct(id);
+    window.location.replace("/");
   };
   const remove = async event => {
     // event.preventDefault();
     productService.removeProduct(id);
+
+    window.location.replace("/");
   };
+
   return (
     <>
       <section class="card">

@@ -17,10 +17,11 @@ export default class ProductService {
     //   }));
     // }
   
-    async postProduct(text) {
-      return this.http.fetch(`/store`, {
+    async postProduct(product) {
+      const {name, price, description, seller_id} = product;
+      return this.http.fetch(`/store/productadd`, {
         method: 'POST',
-        body: JSON.stringify({ text, username: 'seonghoon', name: 'Seonghoon' }),
+        body: JSON.stringify({ name, price, description, seller_id  }),
       });
     }
   
