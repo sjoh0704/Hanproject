@@ -24,14 +24,13 @@ export default class ProductService {
       });
     }
   
-    async deleteProduct(productId) {
+    async removeProduct(productId) {
       return this.http.fetch(`/store/${productId}`, {
         method: 'DELETE',
       });
     }
   
     async plusProduct(productId) {
-      console.log('"id"' , );
       return this.http.fetch(`/store/${productId}`, {
         method: 'PUT',
       });

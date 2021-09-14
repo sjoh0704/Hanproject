@@ -5,12 +5,10 @@ import * as storeRepository from '../data/store.js';
 
 
 export async function getProducts(req, res) {
-    console.log('어이없네');
     const username = req.query.username;
     const data = await (username
     ? storeRepository.getAllByUsername(username)
     : storeRepository.getAll()); 
-    console.log('data 는?',data);
     res.status(200).json(data);
 }
 
@@ -33,11 +31,28 @@ export async function createProduct(req, res){
 
 export async function plusProduct(req, res){
     const id = req.params.id;
+    const {buyer_id} = req.body;
     const product = await storeRepository.getById(id);
     if(!product){
         return res.status(404).json({ message: `Pr not found: ${id}` });
     }
-    console.log('리퀘스트',req, '아이디',id);
-    const updated = await storeRepository.update(id);
+    const updated = await storeRepository.update(id, buyer_id);
     res.status(200).json(updated);
 }
+
+export async function removeProduct(req, res){
+    const id = req.params.id;
+    
+    console.log('리퀘스트',req, '아이디',id);
+  const product = await storeRepository.getById(id);
+  if (!product) {
+    return res.status(404).json({ message: `product not found: ${id}` });
+  }
+//   if (product.userId !== req.userId) {
+//     return res.sendStatus(403);
+//   }
+  await storeRepository.remove(id);
+  res.sendStatus(204);
+}
+
+

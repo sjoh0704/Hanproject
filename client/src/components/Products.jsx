@@ -5,9 +5,13 @@ const Products = memo(({ product, productService }) => {
   const { id, seller_id, name, price, description } = product;
   const path = "/" + id;
   console.log(path);
-  const onClick = async event => {
-    event.preventDefault();
+  const Plus = async event => {
+    // event.preventDefault();
     productService.plusProduct(id);
+  };
+  const remove = async event => {
+    // event.preventDefault();
+    productService.removeProduct(id);
   };
   return (
     <>
@@ -23,7 +27,8 @@ const Products = memo(({ product, productService }) => {
           </div>
         </Link>
       </section>
-      <button onClick={onClick}>입찰하기</button>
+      <button onClick={Plus}>입찰하기</button>
+      <button onClick={remove}>삭제하기</button>
 
       {/* <div>
         <img src="/logo192.png"></img>

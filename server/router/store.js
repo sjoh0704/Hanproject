@@ -13,4 +13,5 @@ router.post('/productadd', storeController.createProduct)
 
 router.put('/:id', storeController.plusProduct)
 
+router.delete('/:id',storeController.removeProduct)
 export default router;

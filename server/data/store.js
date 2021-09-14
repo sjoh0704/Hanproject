@@ -72,15 +72,21 @@ export async function create(seller_id, name, price, description){
         createdAt: new Date(),
     };
     products = [product, ...products];
-    return getById(product.seller_id);
+    return getById(product.id);
 }
 
-export async function update(id){
+export async function update(id, buyer_id){
     console.log('아이디ididid',id);
     const product = products.find((product) => product.id === id);
     
     if(product){
+        product.buyer_id = buyer_id;
         product.price = (parseInt(product.price)*1.1);
     } 
     return getById(product.id);
+}
+
+export async function remove(id){ 
+    console.log('id',id,);
+        products = products.filter((product) => product.id !== id);
 }
