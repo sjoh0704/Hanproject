@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Products from "./Products";
 
-const Home = ({ productService, product_id }) => {
+const Home = ({ productService, seller_id }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   useEffect(() => {
     productService
-      .getProducts(product_id)
+      .getProducts(seller_id)
       .then(product => setProducts([...product]))
       .catch(onError);
-  }, [productService, product_id]);
+  }, [productService]);
 
   const onError = error => {
     setError(error.toString());

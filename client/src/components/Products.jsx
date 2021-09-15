@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 
 const Products = memo(({ product, productService, onError }) => {
   const history = useHistory();
-  const { id, seller_id, name, price, description } = product;
+  const { id, buyer_id, seller_id, name, price, description } = product;
   const path = "/" + id;
   const gotoProductadd = product => {
     console.log("asd", product);
@@ -21,7 +21,7 @@ const Products = memo(({ product, productService, onError }) => {
 
   const Plus = async event => {
     // event.preventDefault();
-    productService.plusProduct(id);
+    productService.plusProduct(id, buyer_id);
     window.location.replace("/");
   };
   const remove = async event => {
@@ -37,7 +37,8 @@ const Products = memo(({ product, productService, onError }) => {
           <img class="card-img-top" src="/logo192.png" alt="Card image cap" />
           <div class="card-body">
             <h5 class="card-title">{name}</h5>
-            <p class="card-text">{price}</p>
+            <span class="card-text">{price}</span>
+            <span> - buyer_id : {buyer_id}</span>
             <p class="card-text">
               <small class="text-muted">{description}</small>
             </p>

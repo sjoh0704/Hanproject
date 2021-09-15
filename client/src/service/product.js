@@ -40,9 +40,10 @@ export default class ProductService {
       });
     }
   
-    async plusProduct(productId) {
+    async plusProduct(productId, buyer_id) {
       return this.http.fetch(`/store/plus/${productId}`, {
         method: 'PUT',
+        body: JSON.stringify({buyer_id : 5})
       });
     }
   
