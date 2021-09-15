@@ -1,3 +1,4 @@
+
 let products = [
     {
         id:Date.now().toString(),
@@ -6,7 +7,9 @@ let products = [
         price:'10000', 
         createdAt: new Date(),
         description:'설명입니다',
-        time:'12:00',
+        fileurl: '/logo192.png',
+        finishdate:  (new Date().getMonth()+1)+ '월-' + new Date().getDate()+ '일  ' +(new Date().getHours()+6)+ ':' + new Date().getMinutes()+ ':' +new Date().getSeconds(),
+        buyer_id: '아직 입찰자 없음',
     },
     {
         id:Date.now()+'1'.toString(),
@@ -14,8 +17,10 @@ let products = [
         name:'박성훈입니다', 
         price:'50000', 
         createdAt: new Date(),
+        fileurl: '/logo192.png',
         description:'디스크립션인가요',
-        time:'12:00',
+        finishdate:(new Date().getMonth()+1)+ '월-' + new Date().getDate()+ '일  ' +(new Date().getHours()+6)+ ':' + new Date().getMinutes()+ ':' +new Date().getSeconds(),
+        buyer_id: '아직 입찰자 없음',
     },
 ];
 
@@ -36,15 +41,19 @@ export async function getById(id) {
     } 
 
 
-export async function create(seller_id, name, price, description){
+export async function create(seller_id, name, fileurl, price, description){
+    console.log('file!!',fileurl);
     const product = {
         id: Date.now().toString(),
         seller_id,
         name,
         price,
+        fileurl,
         time: '12:00',
         description,
         createdAt: new Date(),
+        buyer_id: '아직입찰자없음',
+        finishdate:(new Date().getMonth()+1)+ '월-' + new Date().getDate()+ '일  ' +(new Date().getHours()+6)+ ':' + new Date().getMinutes()+ ':' +new Date().getSeconds(),
     };
     products = [product, ...products];
     return getById(product.id);

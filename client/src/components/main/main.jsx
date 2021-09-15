@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Products from "./Products";
+import Products from "../products/products";
 
-const Home = ({ productService, seller_id }) => {
+const Main = ({ productService, product_id, seller_id }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   useEffect(() => {
     productService
-      .getProducts(seller_id)
+      .getProducts(product_id, seller_id)
       .then(product => setProducts([...product]))
       .catch(onError);
   }, [productService]);
@@ -40,4 +40,4 @@ const Home = ({ productService, seller_id }) => {
     </>
   );
 };
-export default Home;
+export default Main;

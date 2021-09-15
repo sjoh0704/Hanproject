@@ -1,8 +1,8 @@
 import React from "react";
-import Home from "../components/Home";
+import Main from "../components/main/main";
 
 const AllProducts = ({ productService }) => {
-  return <Home productService={productService} />;
+  return <Main productService={productService} />;
 };
 
 export default AllProducts;

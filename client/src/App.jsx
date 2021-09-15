@@ -5,7 +5,7 @@ import AllProducts from "./pages/AllProducts";
 import Productadd from "./pages/ProductAdd";
 import ThisProducts from "./pages/ThisProducts";
 
-const App = ({ productService }) => {
+const App = ({ FileInput, productService }) => {
   return (
     <BrowserRouter>
       <div>
@@ -14,7 +14,8 @@ const App = ({ productService }) => {
             <AllProducts productService={productService} />;
           </Route>
           <Route exact path="/productadd">
-            <Productadd productService={productService} />;
+            <Productadd FileInput={FileInput} productService={productService} />
+            ;
           </Route>
           <Route exact path="/:id">
             <ThisProducts productService={productService} />;

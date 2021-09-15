@@ -3,7 +3,16 @@ import { Link, useHistory } from "react-router-dom";
 
 const Products = memo(({ product, productService, onError }) => {
   const history = useHistory();
-  const { id, buyer_id, seller_id, name, price, description } = product;
+  const {
+    id,
+    buyer_id,
+    seller_id,
+    fileurl,
+    finishdate,
+    name,
+    price,
+    description,
+  } = product;
   const path = "/" + id;
   const gotoProductadd = product => {
     console.log("asd", product);
@@ -20,21 +29,19 @@ const Products = memo(({ product, productService, onError }) => {
   };
 
   const Plus = async event => {
-    // event.preventDefault();
     productService.plusProduct(id, buyer_id);
     window.location.replace("/");
   };
   const remove = async event => {
-    // event.preventDefault();
     productService.removeProduct(id);
-
     window.location.replace("/");
   };
+  useEffect(() => {});
   return (
     <>
       <section class="card">
         <Link to={path}>
-          <img class="card-img-top" src="/logo192.png" alt="Card image cap" />
+          <img class="card-img-top" src={fileurl} alt="Card image cap" />
           <div class="card-body">
             <h5 class="card-title">{name}</h5>
             <span class="card-text">{price}</span>
@@ -42,6 +49,7 @@ const Products = memo(({ product, productService, onError }) => {
             <p class="card-text">
               <small class="text-muted">{description}</small>
             </p>
+            <span>종료시간 {finishdate}</span>
           </div>
         </Link>
       </section>

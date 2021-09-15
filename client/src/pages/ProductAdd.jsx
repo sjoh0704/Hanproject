@@ -1,8 +1,8 @@
 import React from "react";
-import PrAdd from "../components/PrAdd";
+import PrAdd from "../components/pradd/prAdd";
 
-const Productadd = ({ productService }) => {
-  return <PrAdd productService={productService} />;
+const Productadd = ({ FileInput, productService }) => {
+  return <PrAdd FileInput={FileInput} productService={productService} />;
 };
 
 export default Productadd;

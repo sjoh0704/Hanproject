@@ -2,8 +2,9 @@ export default class ProductService {
     constructor(http) {
       this.http = http;
     }
-    async getProducts(id) {
-      const query = id ? `${id}` : '';
+    async getProducts(product_id, seller_id) {
+      let query = product_id ? `${product_id}` : '';
+      query = seller_id ? `${seller_id}` : query;
       return this.http.fetch(`/store/${query}`, {
         method: 'GET',
       });
@@ -18,10 +19,10 @@ export default class ProductService {
     // }
   
     async postProduct(product) {
-      const {name, price, description, seller_id} = product;
+      const {name, price, description, seller_id, fileurl} = product;
       return this.http.fetch(`/store/productadd`, {
         method: 'POST',
-        body: JSON.stringify({ name, price, description, seller_id  }),
+        body: JSON.stringify({ name, price, description, fileurl, seller_id  }),
       });
     }
   
