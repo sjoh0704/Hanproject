@@ -22,15 +22,18 @@ const Home = ({ productService, product_id }) => {
   console.log("pro", products);
   return (
     <>
-      <Link to="/productadd">
-        <button>상품등록하기</button>
-      </Link>
+      {products.length !== 1 ? (
+        <Link to="/productadd">
+          <button>상품등록하기</button>
+        </Link>
+      ) : null}
       <ul>
         {products.map(product => (
           <Products
             productService={productService}
             key={product.id}
             product={product}
+            onError={onError}
           />
         ))}
       </ul>

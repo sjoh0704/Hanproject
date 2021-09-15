@@ -1,25 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 const PrAdd = ({ productService, onError }) => {
+  const history = useHistory();
+  const historyState =
+    (history.location.state && history.location.state.products) || "";
+  const { id, name, price, description, seller_id } = historyState;
+
   const [product, setProduct] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    seller_id: 0,
+    id: id,
+    name: name,
+    price: price,
+    description: description,
+    seller_id: seller_id,
   });
   const onSubmit = async event => {
     event.preventDefault();
-    productService
-      .postProduct(product)
-      .then(created => {
-        console.log("product", product);
-        setProduct("");
-        window.location.replace("/");
-      })
-      .catch(onError);
+
+    (historyState.name &&
+      productService
+        .updateProduct(product)
+        .then(created => {
+          setProduct("");
+          history.push("/");
+        })
+        .catch(onError)) ||
+      productService
+        .postProduct(product)
+        .then(created => {
+          setProduct("");
+          history.push("/");
+        })
+        .catch(onError);
   };
 
+  //   useEffect(() => {
+
+  //   }, [productService, product_id]);
+
   const onChange = event => {
+    console.log("product", product);
     const { name, value } = event.target;
     setProduct({ ...product, [name]: value });
   };

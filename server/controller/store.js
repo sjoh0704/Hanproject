@@ -36,7 +36,18 @@ export async function plusProduct(req, res){
     if(!product){
         return res.status(404).json({ message: `Pr not found: ${id}` });
     }
-    const updated = await storeRepository.update(id, buyer_id);
+    const updated = await storeRepository.updateplus(id, buyer_id);
+    res.status(200).json(updated);
+}
+
+export async function updateProduct(req, res){
+    const id = req.params.id;
+    const {name, price, description, seller_id} = req.body;
+    const product = await storeRepository.getById(id);
+    if(!product){
+        return res.status(404).json({ message: `Pr not found: ${id}` });
+    }
+    const updated = await storeRepository.update(id, seller_id, name, price, description);
     res.status(200).json(updated);
 }
 

@@ -17,7 +17,6 @@ const App = ({ productService }) => {
             <Productadd productService={productService} />;
           </Route>
           <Route exact path="/:id">
-            <h1>zza</h1>
             <ThisProducts productService={productService} />;
           </Route>
         </Switch>

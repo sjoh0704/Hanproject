@@ -25,6 +25,15 @@ export default class ProductService {
       });
     }
   
+    async updateProduct(product) {
+      const{name, price, description, seller_id, id} = product;
+      return this.http.fetch(`/store/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ name, price, description, seller_id  }),
+      
+      });
+    }
+
     async removeProduct(productId) {
       return this.http.fetch(`/store/${productId}`, {
         method: 'DELETE',
@@ -32,7 +41,7 @@ export default class ProductService {
     }
   
     async plusProduct(productId) {
-      return this.http.fetch(`/store/${productId}`, {
+      return this.http.fetch(`/store/plus/${productId}`, {
         method: 'PUT',
       });
     }

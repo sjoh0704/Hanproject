@@ -34,32 +34,7 @@ export async function getById(id) {
     }
     return found
     } 
-    // export async function getById(id) {
-    //     const found = products.filter((product) => product.id === id);
-    //     if(!found){
-    //         return null;
-    //     }
-    //     return {...found}
-    // }
-    
-    
-// export async function getById(id) {
-//     const found = products.filter((product) => product.seller_id === id);
-//     if(!found){
-//         return null;
-//     }
-//     return {...found}
-// }
 
-
-// export async function getById(id){
-//     const found = products.find((product) => product.seller_id === id);
-//     if(!found) {
-//         return null;
-//     }
-//     const { username } = await userRepository.findById(found.seller_id);
-//     return { ...found, username };
-// }
 
 export async function create(seller_id, name, price, description){
     const product = {
@@ -75,8 +50,8 @@ export async function create(seller_id, name, price, description){
     return getById(product.id);
 }
 
-export async function update(id, buyer_id){
-    console.log('아이디ididid',id);
+export async function updateplus(id, buyer_id){
+    
     const product = products.find((product) => product.id === id);
     
     if(product){
@@ -86,6 +61,18 @@ export async function update(id, buyer_id){
     return getById(product.id);
 }
 
+export async function update(id,seller_id, name, price, description){
+    
+    const product = products.find((product) => product.id === id);
+    
+    if(product){
+        product.name = name;
+        product.price = (parseInt(price));
+        product.description = description;
+        product.seller_id = seller_id;
+    } 
+    return null;
+}
 export async function remove(id){ 
     console.log('id',id,);
         products = products.filter((product) => product.id !== id);
