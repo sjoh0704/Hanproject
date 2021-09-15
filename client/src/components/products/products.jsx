@@ -28,11 +28,11 @@ const Products = memo(({ product, productService, onError }) => {
       .catch(onError);
   };
 
-  const Plus = async event => {
+  const Plus = async () => {
     productService.plusProduct(id, buyer_id);
     window.location.replace("/");
   };
-  const remove = async event => {
+  const remove = async () => {
     productService.removeProduct(id);
     window.location.replace("/");
   };
@@ -53,20 +53,11 @@ const Products = memo(({ product, productService, onError }) => {
           </div>
         </Link>
       </section>
-      <button onClick={Plus}>입찰하기</button>
+      <button onClick={Plus}>{parseInt(price * 1.1)}원에 입찰하기</button>
       <button onClick={remove}>삭제하기</button>
 
       <button onClick={onClick}>상품 수정하기</button>
-
-      {/* <div>
-        <img src="/logo192.png"></img>
-        <li>{id}</li>
-        <li>{seller_id}</li>
-        <li>{name}</li>
-        <li>{price}</li>
-        <li>{description}</li>
-      </div>
-      <hr /> */}
+      <hr />
     </>
   );
 });

@@ -11,14 +11,13 @@ const App = ({ FileInput, productService }) => {
       <div>
         <Switch>
           <Route exact path="/">
-            <AllProducts productService={productService} />;
+            <AllProducts productService={productService} />
           </Route>
           <Route exact path="/productadd">
             <Productadd FileInput={FileInput} productService={productService} />
-            ;
           </Route>
           <Route exact path="/:id">
-            <ThisProducts productService={productService} />;
+            <ThisProducts productService={productService} />
           </Route>
         </Switch>
       </div>

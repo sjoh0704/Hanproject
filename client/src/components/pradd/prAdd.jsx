@@ -6,9 +6,8 @@ const PrAdd = ({ FileInput, productService, onError }) => {
   const historyState =
     (history.location.state && history.location.state.products) || "";
   const { id, name, price, description, seller_id, fileurl } = historyState;
-
+  const [error, setError] = useState("");
   const onFileChange = file => {
-    console.log("file!!@#@!#", file);
     setProduct({
       ...product,
       fileurl: file.url,
@@ -24,26 +23,31 @@ const PrAdd = ({ FileInput, productService, onError }) => {
   });
   const onSubmit = async event => {
     event.preventDefault();
-    (historyState.name &&
+    if (historyState.name) {
       productService
         .updateProduct(product)
-        .then(created => {
+        .then(() => {
           setProduct("");
-          history.push("/");
         })
-        .catch(onError)) ||
+        .catch(e => setError(e));
+      history.push("/");
+    } else {
       productService
         .postProduct(product)
-        .then(created => {
+        .then(() => {
           setProduct("");
-          history.push("/");
         })
-        .catch(onError);
+        .catch(e => setError(e));
+    }
+    history.push("/");
+  };
+  const erroralert = () => {
+    error && alert(`${error}`);
   };
 
-  //   useEffect(() => {
-
-  //   }, [productService, product_id]);
+  useEffect(() => {
+    erroralert();
+  }, [error]);
 
   const onChange = event => {
     console.log("product", product);

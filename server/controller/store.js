@@ -1,20 +1,17 @@
 import * as storeRepository from '../data/store.js';
 
-
-
-
-
 export async function getProducts(req, res) {
-    const username = req.query.username;
-    const data = await (username
-    ? storeRepository.getAllByUsername(username)
-    : storeRepository.getAll()); 
+    const {seller_id} = req.query;
+    const data = await (!seller_id
+    ? storeRepository.getAll()
+    : storeRepository.getAllBysellerid(seller_id));
     res.status(200).json(data);
 }
 
 export async function getProduct(req, res) {
     const id = req.params.id;
     const product = await storeRepository.getById(id);
+    
     if(product){
         res.status(200).json(product);
     }else{
@@ -36,32 +33,28 @@ export async function plusProduct(req, res){
     if(!product){
         return res.status(404).json({ message: `Pr not found: ${id}` });
     }
-    const updated = await storeRepository.updateplus(id, buyer_id);
+    const updated = await storeRepository.updateplus(id, buyer_id, product.price);
     res.status(200).json(updated);
 }
 
 export async function updateProduct(req, res){
     const id = req.params.id;
-    const {name, price, description,fileurl , seller_id} = req.body;
+    const {fileurl, name, description} = req.body;
     const product = await storeRepository.getById(id);
     if(!product){
         return res.status(404).json({ message: `Pr not found: ${id}` });
     }
-    const updated = await storeRepository.update(id, fileurl, seller_id, name, price, description);
+    const updated = await storeRepository.update(id, fileurl, name, description);
     res.status(200).json(updated);
 }
 
 export async function removeProduct(req, res){
     const id = req.params.id;
     
-    console.log('리퀘스트',req, '아이디',id);
   const product = await storeRepository.getById(id);
   if (!product) {
     return res.status(404).json({ message: `product not found: ${id}` });
   }
-//   if (product.userId !== req.userId) {
-//     return res.sendStatus(403);
-//   }
   await storeRepository.remove(id);
   res.sendStatus(204);
 }

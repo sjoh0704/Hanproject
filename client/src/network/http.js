@@ -22,16 +22,16 @@ export default class HttpClient {
       if (res.status > 299 || res.status < 200) {
         const message =
           data && data.message ? data.message : 'Something went wrong! 🤪';
-        const error = new Error(message);
-        if(res.status === 401) {
-            this.authErrorEventBus.notify(error);
-            return;
-        }
-
-        throw error;
+        // const error = new Error(message);
+        // if(res.status === 401) {
+        //     this.authErrorEventBus.notify(error);
+        //     return;
+        // }
+        throw message;
+        //  throw error;
       }
       console.log('data',data);
-      return data;
+      return [data];
 
     }
   }

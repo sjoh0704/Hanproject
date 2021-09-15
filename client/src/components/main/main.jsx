@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Products from "../products/products";
 
-const Main = ({ productService, product_id, seller_id }) => {
+const Main = ({ productService, product_id }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   useEffect(() => {
-    productService
-      .getProducts(product_id, seller_id)
-      .then(product => setProducts([...product]))
-      .catch(onError);
+    (product_id &&
+      productService
+        .getProducts(product_id)
+        .then(product => setProducts([...product]))
+        .catch(onError)) ||
+      productService
+        .getProducts(product_id)
+        .then(product => setProducts([...product[0]]))
+        .catch(onError);
   }, [productService]);
 
   const onError = error => {
