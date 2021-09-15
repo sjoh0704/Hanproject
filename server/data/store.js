@@ -70,11 +70,12 @@ export async function updateplus(id, buyer_id){
     return getById(product.id);
 }
 
-export async function update(id,seller_id, name, price, description){
+export async function update(id, fileurl, seller_id, name, price, description){
     
     const product = products.find((product) => product.id === id);
-    
+    console.log(product);
     if(product){
+        product.fileurl = fileurl;
         product.name = name;
         product.price = (parseInt(price));
         product.description = description;

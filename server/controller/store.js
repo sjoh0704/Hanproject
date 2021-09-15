@@ -42,12 +42,12 @@ export async function plusProduct(req, res){
 
 export async function updateProduct(req, res){
     const id = req.params.id;
-    const {name, price, description, seller_id} = req.body;
+    const {name, price, description,fileurl , seller_id} = req.body;
     const product = await storeRepository.getById(id);
     if(!product){
         return res.status(404).json({ message: `Pr not found: ${id}` });
     }
-    const updated = await storeRepository.update(id, seller_id, name, price, description);
+    const updated = await storeRepository.update(id, fileurl, seller_id, name, price, description);
     res.status(200).json(updated);
 }
 

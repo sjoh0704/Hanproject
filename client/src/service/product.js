@@ -27,10 +27,10 @@ export default class ProductService {
     }
   
     async updateProduct(product) {
-      const{name, price, description, seller_id, id} = product;
+      const{name, price, description, seller_id, fileurl,id} = product;
       return this.http.fetch(`/store/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ name, price, description, seller_id  }),
+        body: JSON.stringify({ name, price, fileurl, description, seller_id  }),
       
       });
     }
