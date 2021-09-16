@@ -8,7 +8,6 @@ import ImageUploader from './service/image_uploader';
 import ImageFileInput from './components/image_file_input/image_file_input';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
-console.log('base',baseURL);
 const httpClient = new HttpClient(baseURL);
 const productService = new ProductService(httpClient);
 const imageUploader = new ImageUploader();

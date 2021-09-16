@@ -31,7 +31,7 @@ export default class HttpClient {
         //  throw error;
       }
       console.log('data',data);
-      return [data];
+      return data;
 
     }
   }

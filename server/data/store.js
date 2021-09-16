@@ -7,7 +7,7 @@ const productSchema = new Mongoose.Schema({
     price: {type: Number, required: true},
     description: {type: String, required: true},
     buyer_id: Number,
-    fileurl: String,
+    fileurl: Array,
 }, {timestamps: true});
 
 useVirtualId(productSchema);

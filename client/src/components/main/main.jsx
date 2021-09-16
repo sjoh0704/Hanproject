@@ -6,15 +6,15 @@ const Main = ({ productService, product_id }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   useEffect(() => {
-    (product_id &&
-      productService
-        .getProducts(product_id)
-        .then(product => setProducts([...product]))
-        .catch(onError)) ||
-      productService
-        .getProducts(product_id)
-        .then(product => setProducts([...product[0]]))
-        .catch(onError);
+    product_id
+      ? productService
+          .getProducts(product_id)
+          .then(product => setProducts([{ ...product }]))
+          .catch(onError)
+      : productService
+          .getProducts()
+          .then(product => setProducts([...product]))
+          .catch(onError);
   }, [productService]);
 
   const onError = error => {

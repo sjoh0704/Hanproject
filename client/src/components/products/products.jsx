@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 const Products = memo(({ product, productService, onError }) => {
@@ -6,7 +6,7 @@ const Products = memo(({ product, productService, onError }) => {
   const {
     id,
     buyer_id,
-    seller_id,
+    // seller_id,
     fileurl,
     finishdate,
     name,
@@ -15,10 +15,9 @@ const Products = memo(({ product, productService, onError }) => {
   } = product;
   const path = "/" + id;
   const gotoProductadd = product => {
-    console.log("asd", product);
     history.push({
       pathname: "/productadd",
-      state: { products: product[0] },
+      state: { products: product },
     });
   };
   const onClick = event => {
@@ -28,26 +27,38 @@ const Products = memo(({ product, productService, onError }) => {
       .catch(onError);
   };
 
+  const refresh = () => {
+    window.location.replace("/");
+  };
+
   const Plus = async () => {
     productService.plusProduct(id, buyer_id);
-    window.location.replace("/");
+    setTimeout(refresh, 200);
   };
   const remove = async () => {
     productService.removeProduct(id);
-    window.location.replace("/");
+    setTimeout(refresh, 200);
   };
-  useEffect(() => {});
   return (
     <>
-      <section class="card">
+      <section className="card">
         <Link to={path}>
-          <img class="card-img-top" src={fileurl} alt="Card image cap" />
-          <div class="card-body">
-            <h5 class="card-title">{name}</h5>
-            <span class="card-text">{price}</span>
+          {fileurl.map(url => {
+            return (
+              <img
+                key={Math.random()}
+                className="card-img-top"
+                src={url.fileurls}
+                alt="Card image cap"
+              />
+            );
+          })}
+          <div className="card-body">
+            <h5 className="card-title">{name}</h5>
+            <span className="card-text">{price}</span>
             <span> - buyer_id : {buyer_id}</span>
-            <p class="card-text">
-              <small class="text-muted">{description}</small>
+            <p className="card-text">
+              <small className="text-muted">{description}</small>
             </p>
             <span>종료시간 {finishdate}</span>
           </div>

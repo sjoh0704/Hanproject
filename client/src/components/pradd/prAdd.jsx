@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
-const PrAdd = ({ FileInput, productService, onError }) => {
+const PrAdd = ({ FileInput, productService }) => {
   const history = useHistory();
-  const historyState =
-    (history.location.state && history.location.state.products) || "";
+  const historyState = history.location.state
+    ? history.location.state.products
+    : "";
   const { id, name, price, description, seller_id, fileurl } = historyState;
   const [error, setError] = useState("");
+  const [url, setUrl] = useState([]);
+  const refresh = () => {
+    window.location.replace("/");
+  };
   const onFileChange = file => {
-    setProduct({
-      ...product,
-      fileurl: file.url,
+    console.log("filechange!!!", file.url);
+    const fileurls = file.url;
+
+    setUrl(url => {
+      return [...url, { fileurls }];
     });
   };
+
+  console.log("hits", historyState);
+  console.log("유아렐이다", url);
   const [product, setProduct] = useState({
     id: id,
     name: name,
@@ -21,6 +31,8 @@ const PrAdd = ({ FileInput, productService, onError }) => {
     seller_id: seller_id,
     fileurl: fileurl,
   });
+
+  console.log("프로적트다", product);
   const onSubmit = async event => {
     event.preventDefault();
     if (historyState.name) {
@@ -30,7 +42,6 @@ const PrAdd = ({ FileInput, productService, onError }) => {
           setProduct("");
         })
         .catch(e => setError(e));
-      history.push("/");
     } else {
       productService
         .postProduct(product)
@@ -39,7 +50,7 @@ const PrAdd = ({ FileInput, productService, onError }) => {
         })
         .catch(e => setError(e));
     }
-    history.push("/");
+    setTimeout(refresh, 200);
   };
   const erroralert = () => {
     error && alert(`${error}`);
@@ -47,10 +58,15 @@ const PrAdd = ({ FileInput, productService, onError }) => {
 
   useEffect(() => {
     erroralert();
-  }, [error]);
+    setProduct(product => {
+      return {
+        ...product,
+        fileurl: url,
+      };
+    });
+  }, [error, url]);
 
   const onChange = event => {
-    console.log("product", product);
     const { name, value } = event.target;
     setProduct({ ...product, [name]: value });
   };
@@ -73,7 +89,6 @@ const PrAdd = ({ FileInput, productService, onError }) => {
           placeholder="Edit product price"
           value={product.price}
           required
-          autoFocus
           onChange={onChange}
         />
         <input
@@ -82,7 +97,6 @@ const PrAdd = ({ FileInput, productService, onError }) => {
           placeholder="Edit product description"
           value={product.description}
           required
-          autoFocus
           onChange={onChange}
         />
         <input
@@ -91,11 +105,16 @@ const PrAdd = ({ FileInput, productService, onError }) => {
           placeholder="Edit seller_id"
           value={product.seller_id}
           required
-          autoFocus
           onChange={onChange}
         />
 
         <FileInput type="text" onFileChange={onFileChange} />
+        <p>업로드된 사진</p>
+        {product.fileurl &&
+          product.fileurl.map(url => {
+            return <img src={url.fileurls} />;
+          })}
+        {/* <img src={url.fileurls} /> */}
         <button className="form-btn">Post</button>
       </form>
     </>
