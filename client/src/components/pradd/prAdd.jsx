@@ -40,6 +40,8 @@ const PrAdd = ({ FileInput, productService }) => {
         .updateProduct(product)
         .then(() => {
           setProduct("");
+
+          setTimeout(refresh, 200);
         })
         .catch(e => setError(e));
     } else {
@@ -47,11 +49,12 @@ const PrAdd = ({ FileInput, productService }) => {
         .postProduct(product)
         .then(() => {
           setProduct("");
+          setTimeout(refresh, 200);
         })
         .catch(e => setError(e));
     }
-    setTimeout(refresh, 200);
   };
+
   const erroralert = () => {
     error && alert(`${error}`);
   };

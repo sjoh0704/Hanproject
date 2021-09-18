@@ -39,6 +39,7 @@ const Products = memo(({ product, productService, onError }) => {
     productService.removeProduct(id);
     setTimeout(refresh, 200);
   };
+
   return (
     <>
       <section className="card">
@@ -65,6 +66,7 @@ const Products = memo(({ product, productService, onError }) => {
         </Link>
       </section>
       <button onClick={Plus}>{parseInt(price * 1.1)}원에 입찰하기</button>
+
       <button onClick={remove}>삭제하기</button>
 
       <button onClick={onClick}>상품 수정하기</button>

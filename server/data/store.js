@@ -31,6 +31,7 @@ export async function getAllBysellerid(seller_id) {
     }     
 
 
+    
 export async function create(seller_id, name, fileurl, price, description){
     new Product({
         seller_id, 
@@ -39,9 +40,17 @@ export async function create(seller_id, name, fileurl, price, description){
         description,
         fileurl,
     }).save()
+    setTimeout(out,10000);
+
 }
 
+const out = () => {
+    console.log('아이디?');
+    // return Product.findByIdAndUpdate(id, {name: '경매종료됐습니다'}, { returnOriginal : false});
+
+}
 export async function updateplus(id, buyer_id, price ){
+    
     return Product.findByIdAndUpdate(id, {price:parseInt(price*1.1),buyer_id},{ returnOriginal : false});
 }
 

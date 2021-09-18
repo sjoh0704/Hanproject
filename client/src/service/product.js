@@ -1,6 +1,7 @@
 export default class ProductService {
-    constructor(http) {
+    constructor(http, socket) {
       this.http = http;
+      this.socket = socket;
     }
     async getProducts(product_id) {
       let query = product_id ? `${product_id}` : '';
@@ -14,7 +15,6 @@ export default class ProductService {
     //   const query = username ? `?username=${username}` : '';
     //   return Promise.all(this.http.fetch(`/store${query}`, {
     //     method: 'GET',
-    //     headers: this.getHeaders(),
     //   }));
     // }
   
@@ -47,6 +47,10 @@ export default class ProductService {
         body: JSON.stringify({buyer_id : 5})
       });
     }
+      onSync(callback){
+        return this.socket.onSync('products', callback);
+      }
+    
   
   
   }

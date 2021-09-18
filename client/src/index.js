@@ -6,11 +6,15 @@ import HttpClient from './network/http';
 import ProductService from './service/product';
 import ImageUploader from './service/image_uploader';
 import ImageFileInput from './components/image_file_input/image_file_input';
+import Socket from './network/socket';
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 const httpClient = new HttpClient(baseURL);
-const productService = new ProductService(httpClient);
 const imageUploader = new ImageUploader();
+const socketClient = new Socket(baseURL);
+const productService = new ProductService(httpClient, socketClient);
+
+
 const FileInput = props => (
 <ImageFileInput {...props} imageUploader = {imageUploader}/>
 );

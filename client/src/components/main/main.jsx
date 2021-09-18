@@ -15,8 +15,14 @@ const Main = ({ productService, product_id }) => {
           .getProducts()
           .then(product => setProducts([...product]))
           .catch(onError);
+
+    const stopSync = productService.onSync(product => onCreated(product));
+    return () => stopSync();
   }, [productService]);
 
+  const onCreated = product => {
+    setProducts([product]);
+  };
   const onError = error => {
     setError(error.toString());
     setTimeout(() => {
@@ -25,6 +31,7 @@ const Main = ({ productService, product_id }) => {
   };
 
   console.log("pro", products);
+
   return (
     <>
       {products.length !== 1 ? (

@@ -1,3 +1,4 @@
+import { getSocketIO } from '../connection/socket.js';
 import * as storeRepository from '../data/store.js';
 
 export async function getProducts(req, res) {
@@ -22,8 +23,7 @@ export async function getProduct(req, res) {
 export async function createProduct(req, res){
     const {seller_id,name, price, fileurl, description } = req.body;
     const product = await storeRepository.create(seller_id,name, fileurl, price, description);
-    res.status(201).json(product)
-
+    res.status(201).json(product);
 }
 
 export async function plusProduct(req, res){
@@ -35,6 +35,7 @@ export async function plusProduct(req, res){
     }
     const updated = await storeRepository.updateplus(id, buyer_id, product.price);
     res.status(200).json(updated);
+    getSocketIO().emit('products', updated);
 }
 
 export async function updateProduct(req, res){
