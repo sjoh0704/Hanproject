@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import Products from "../products/products";
 
 const Main = ({ productService, product_id }) => {
+  const history = useHistory();
+  console.log("히스토리", history);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -15,23 +18,23 @@ const Main = ({ productService, product_id }) => {
           .getProducts() // 모든 상품 가져오기
           .then(product => setProducts([...product]))
           .catch(onError);
-
     const stopSync = productService.onSync(product => onCreated(product));
     return () => stopSync();
   }, [productService]);
 
   const onCreated = product => {
-    console.log("gdgd", product);
-    setProducts(product);
+    setProducts(products => (products.length == 1 ? [product[0]] : product));
+
+    // setProducts(products) : setProducts(product);
   };
+  console.log("이건", products);
+
   const onError = error => {
     setError(error.toString());
     setTimeout(() => {
       setError("");
     }, 3000);
   };
-
-  console.log("pro", products);
 
   return (
     <>
