@@ -1,7 +1,7 @@
 import { getSocketIO } from '../connection/socket.js';
 import * as storeRepository from '../data/store.js';
 
-export async function getProducts(req, res) {
+export async function getProducts(req, res) { // seller_Id가 없으면 전체상품 있으면 그 상품들
     const {seller_id} = req.query;
     const data = await (!seller_id
     ? storeRepository.getAll()
@@ -9,7 +9,7 @@ export async function getProducts(req, res) {
     res.status(200).json(data);
 }
 
-export async function getProduct(req, res) {
+export async function getProduct(req, res) { //해당 id 상품
     const id = req.params.id;
     const product = await storeRepository.getById(id);
     
@@ -20,13 +20,13 @@ export async function getProduct(req, res) {
     }
 }
 
-export async function createProduct(req, res){
+export async function createProduct(req, res){ // 상품생성
     const {seller_id,name, price, fileurl, description } = req.body;
     const product = await storeRepository.create(seller_id,name, fileurl, price, description);
     res.status(201).json(product);
 }
 
-export async function plusProduct(req, res){
+export async function plusProduct(req, res){ // 가격 10%인상 buyer_id 전달
     const id = req.params.id;
     const {buyer_id} = req.body;
     const product = await storeRepository.getById(id);
@@ -38,7 +38,7 @@ export async function plusProduct(req, res){
     getSocketIO().emit('products', updated);
 }
 
-export async function updateProduct(req, res){
+export async function updateProduct(req, res){ // 상품수정
     const id = req.params.id;
     const {fileurl, name, description} = req.body;
     const product = await storeRepository.getById(id);
@@ -49,7 +49,7 @@ export async function updateProduct(req, res){
     res.status(200).json(updated);
 }
 
-export async function removeProduct(req, res){
+export async function removeProduct(req, res){ //상품삭제
     const id = req.params.id;
     
   const product = await storeRepository.getById(id);

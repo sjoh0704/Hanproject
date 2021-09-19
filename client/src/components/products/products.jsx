@@ -22,7 +22,7 @@ const Products = memo(({ product, productService, onError }) => {
   };
   const onClick = event => {
     productService
-      .getProducts(id)
+      .getProducts(id) // id에 맞는 상품 들고오기
       .then(product => gotoProductadd(product))
       .catch(onError);
   };
@@ -32,11 +32,11 @@ const Products = memo(({ product, productService, onError }) => {
   };
 
   const Plus = async () => {
-    productService.plusProduct(id, buyer_id);
+    productService.plusProduct(id, buyer_id); // 입찰시 금액 10% 추가
     setTimeout(refresh, 200);
   };
   const remove = async () => {
-    productService.removeProduct(id);
+    productService.removeProduct(id); // id 찾아서 그 상품 삭제
     setTimeout(refresh, 200);
   };
 

@@ -8,11 +8,11 @@ const Main = ({ productService, product_id }) => {
   useEffect(() => {
     product_id
       ? productService
-          .getProducts(product_id)
+          .getProducts(product_id) // product_id인 상품 가져오기
           .then(product => setProducts([{ ...product }]))
           .catch(onError)
       : productService
-          .getProducts()
+          .getProducts() // 모든 상품 가져오기
           .then(product => setProducts([...product]))
           .catch(onError);
 
@@ -21,7 +21,8 @@ const Main = ({ productService, product_id }) => {
   }, [productService]);
 
   const onCreated = product => {
-    setProducts([product]);
+    //concat 사용
+    setProducts(products => [product, ...products.slice(1)]);
   };
   const onError = error => {
     setError(error.toString());

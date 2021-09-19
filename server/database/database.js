@@ -6,7 +6,7 @@ export async function connectDB(){
     );
 }
 
-export function useVirtualId(schema){
+export function useVirtualId(schema){  // mongodb _id로 나오는거 id로 변환
     
     schema.virtual('id').get(function() {
         return this._id.toString();

@@ -13,16 +13,12 @@ const PrAdd = ({ FileInput, productService }) => {
     window.location.replace("/");
   };
   const onFileChange = file => {
-    console.log("filechange!!!", file.url);
     const fileurls = file.url;
-
     setUrl(url => {
       return [...url, { fileurls }];
     });
   };
 
-  console.log("hits", historyState);
-  console.log("유아렐이다", url);
   const [product, setProduct] = useState({
     id: id,
     name: name,
@@ -32,12 +28,12 @@ const PrAdd = ({ FileInput, productService }) => {
     fileurl: fileurl,
   });
 
-  console.log("프로적트다", product);
   const onSubmit = async event => {
     event.preventDefault();
     if (historyState.name) {
+      //상품 정보가 넘어왔다면
       productService
-        .updateProduct(product)
+        .updateProduct(product) // 상품 수정
         .then(() => {
           setProduct("");
 
@@ -46,7 +42,7 @@ const PrAdd = ({ FileInput, productService }) => {
         .catch(e => setError(e));
     } else {
       productService
-        .postProduct(product)
+        .postProduct(product) // 상품 정보가 안 넘어왔다면 상품 생성
         .then(() => {
           setProduct("");
           setTimeout(refresh, 200);

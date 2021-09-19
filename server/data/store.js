@@ -18,47 +18,42 @@ const Product = Mongoose.model('Product', productSchema);
 
 export async function getAll() {
     return Product.find().sort({createdAt: -1});
-    }
+    } // 역순으로 전체상품
 
 
 
 export async function getById(id) {
     return Product.findById(id);
-    } 
+    }  // 상품 아이디 받아서 해당 상품 검색
 
 export async function getAllBysellerid(seller_id) {
     return Product.find({seller_id})
-    }     
+    }     // 셀러아이디 받아서 해당 셀러아이디 상품 검색
 
 
     
 export async function create(seller_id, name, fileurl, price, description){
-    new Product({
+    return new Product({
         seller_id, 
         name, 
         price, 
         description,
         fileurl,
     }).save()
-    setTimeout(out,10000);
-
+//상품 생성하고 저장
 }
 
-const out = () => {
-    console.log('아이디?');
-    // return Product.findByIdAndUpdate(id, {name: '경매종료됐습니다'}, { returnOriginal : false});
 
-}
-export async function updateplus(id, buyer_id, price ){
+export async function updateplus(id, buyer_id, price ){ // price 받아서 10% 인상하고 buyer_id 설정
     
     return Product.findByIdAndUpdate(id, {price:parseInt(price*1.1),buyer_id},{ returnOriginal : false});
 }
 
-export async function update(id, fileurl, name, description){
+export async function update(id, fileurl, name, description){ // 상품 수정
     return Product.findByIdAndUpdate(id, {fileurl,name,description}, { returnOriginal : false});
 
 
 }
-export async function remove(id){ 
+export async function remove(id){ // 상품 삭제
     return Product.findByIdAndDelete(id)    
 }
