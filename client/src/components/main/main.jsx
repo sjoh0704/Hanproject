@@ -21,8 +21,8 @@ const Main = ({ productService, product_id }) => {
   }, [productService]);
 
   const onCreated = product => {
-    //concat 사용
-    setProducts(products => [product, ...products.slice(1)]);
+    console.log("gdgd", product);
+    setProducts(product);
   };
   const onError = error => {
     setError(error.toString());
