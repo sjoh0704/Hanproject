@@ -42,12 +42,12 @@ export async function plusProduct(req, res){ // 가격 10%인상 buyer_id 전달
 
 export async function updateProduct(req, res){ // 상품수정
     const id = req.params.id;
-    const {fileurl, name, description} = req.body;
+    const {fileurl, name,price,description} = req.body;
     const product = await storeRepository.getById(id);
     if(!product){
         return res.status(404).json({ message: `Pr not found: ${id}` });
     }
-    const updated = await storeRepository.update(id, fileurl, name, description);
+    const updated = await storeRepository.update(id, fileurl, name, price, description);
     res.status(200).json(updated);
 }
 

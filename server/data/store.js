@@ -49,8 +49,9 @@ export async function updateplus(id, buyer_id, price ){ // price 받아서 10% �
     return Product.findByIdAndUpdate(id, {price:parseInt(price*1.1),buyer_id},{ returnOriginal : false});
 }
 
-export async function update(id, fileurl, name, description){ // 상품 수정
-    return Product.findByIdAndUpdate(id, {fileurl,name,description}, { returnOriginal : false});
+export async function update(id, fileurl, name,price, description){ // 상품 수정
+    console.log('fileurl,,', fileurl, 'anaana',name, 'desac', description);
+    return Product.findByIdAndUpdate(id, {fileurl,name,price,description}, { returnOriginal : false});
 
 
 }

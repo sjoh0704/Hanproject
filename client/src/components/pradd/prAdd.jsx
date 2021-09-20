@@ -60,12 +60,13 @@ const PrAdd = ({ FileInput, productService }) => {
     setProduct(product => {
       return {
         ...product,
-        fileurl: url,
+        fileurl: fileurl,
       };
     });
   }, [error, url]);
 
   const onChange = event => {
+    console.log("pr", product);
     const { name, value } = event.target;
     setProduct({ ...product, [name]: value });
   };
@@ -82,14 +83,27 @@ const PrAdd = ({ FileInput, productService }) => {
           autoFocus
           onChange={onChange}
         />
-        <input
-          name="price"
-          type="text"
-          placeholder="Edit product price"
-          value={product.price}
-          required
-          onChange={onChange}
-        />
+        {historyState.name ? (
+          <input
+            name="price"
+            type="text"
+            placeholder="Edit product price"
+            value={product.price}
+            required
+            readOnly
+            onChange={onChange}
+          />
+        ) : (
+          <input
+            name="price"
+            type="text"
+            placeholder="Edit product price"
+            value={product.price}
+            required
+            onChange={onChange}
+          />
+        )}
+
         <input
           name="description"
           type="text"
@@ -106,9 +120,14 @@ const PrAdd = ({ FileInput, productService }) => {
           required
           onChange={onChange}
         />
+        {historyState.name ? (
+          ""
+        ) : (
+          <FileInput type="text" onFileChange={onFileChange} />
+        )}
 
-        <FileInput type="text" onFileChange={onFileChange} />
-        <p>업로드된 사진</p>
+        <p>한번 등록된 상품 사진과 금액은 수정이 불가능합니다.</p>
+        <p>현재 등록된 이미지</p>
         {product.fileurl &&
           product.fileurl.map(url => {
             return <img src={url.fileurls} />;

@@ -56,14 +56,19 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
           <div className="card-body">
             <h5 className="card-title">{name}</h5>
 
-            {oneproduct && (
+            {(oneproduct && (
               <>
                 <span className="card-text">{price}</span>
-                <span> - buyer_id : {buyer_id}</span>
+                <h3> - buyer_id : {buyer_id}</h3>
                 <button onClick={Plus}>
                   {parseInt(price * 1.1)}원에 입찰하기
                 </button>
               </>
+            )) || (
+              <span>
+                입찰은 상품 상세에서 가능합니다. 현재 금액을 보시거나
+                입찰하시려면 상품을 클릭하세요
+              </span>
             )}
 
             <p className="card-text">
