@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-const Products = memo(({ product, productService, onError }) => {
+const Products = memo(({ product, productService, onError, oneproduct }) => {
   const history = useHistory();
   const {
     id,
@@ -33,7 +33,6 @@ const Products = memo(({ product, productService, onError }) => {
 
   const Plus = async () => {
     productService.plusProduct(id, buyer_id); // 입찰시 금액 10% 추가
-    setTimeout(refresh, 200);
   };
   const remove = async () => {
     productService.removeProduct(id); // id 찾아서 그 상품 삭제
@@ -56,8 +55,17 @@ const Products = memo(({ product, productService, onError }) => {
           })}
           <div className="card-body">
             <h5 className="card-title">{name}</h5>
-            <span className="card-text">{price}</span>
-            <span> - buyer_id : {buyer_id}</span>
+
+            {oneproduct && (
+              <>
+                <span className="card-text">{price}</span>
+                <span> - buyer_id : {buyer_id}</span>
+                <button onClick={Plus}>
+                  {parseInt(price * 1.1)}원에 입찰하기
+                </button>
+              </>
+            )}
+
             <p className="card-text">
               <small className="text-muted">{description}</small>
             </p>
@@ -65,7 +73,6 @@ const Products = memo(({ product, productService, onError }) => {
           </div>
         </Link>
       </section>
-      <button onClick={Plus}>{parseInt(price * 1.1)}원에 입찰하기</button>
 
       <button onClick={remove}>삭제하기</button>
 

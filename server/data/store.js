@@ -8,7 +8,7 @@ const productSchema = new Mongoose.Schema({
     description: {type: String, required: true},
     buyer_id: Number,
     fileurl: Array,
-}, {timestamps: true});
+}, {versionKey: false},{timestamps: true});
 
 useVirtualId(productSchema);
 const Product = Mongoose.model('Product', productSchema);
@@ -17,7 +17,7 @@ const Product = Mongoose.model('Product', productSchema);
 
 
 export async function getAll() {
-    return Product.find().sort({createdAt: -1});
+    return Product.find().sort({createdAt: 1});
     } // 역순으로 전체상품
 
 

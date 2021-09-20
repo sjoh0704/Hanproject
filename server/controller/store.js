@@ -35,7 +35,7 @@ export async function plusProduct(req, res){ // 가격 10%인상 buyer_id 전달
     }
     const updated = await storeRepository.updateplus(id, buyer_id, product.price);
     res.status(200).json(updated);
-    const pro = await storeRepository.getAll()
+    const pro = await storeRepository.getById(id)
     console.log('adasd',pro);
     getSocketIO().emit('products', pro);
 }

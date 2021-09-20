@@ -23,7 +23,12 @@ const Main = ({ productService, product_id }) => {
   }, [productService]);
 
   const onCreated = product => {
-    setProducts(products => (products.length == 1 ? [product[0]] : product));
+    setProducts(products =>
+      products[0].id == product.id && products.length == 1
+        ? [product]
+        : products
+    );
+    // setProducts(products => (products.length == 1 ? [product] : products));
 
     // setProducts(products) : setProducts(product);
   };
@@ -39,20 +44,34 @@ const Main = ({ productService, product_id }) => {
   return (
     <>
       {products.length !== 1 ? (
-        <Link to="/productadd">
-          <button>상품등록하기</button>
-        </Link>
-      ) : null}
-      <ul>
-        {products.map(product => (
-          <Products
-            productService={productService}
-            key={product.id}
-            product={product}
-            onError={onError}
-          />
-        ))}
-      </ul>
+        <>
+          <Link to="/productadd">
+            <button>상품등록하기</button>
+          </Link>
+          <ul>
+            {products.map(product => (
+              <Products
+                productService={productService}
+                key={product.id}
+                product={product}
+                onError={onError}
+              />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <ul>
+          {products.map(product => (
+            <Products
+              oneproduct={true}
+              productService={productService}
+              key={product.id}
+              product={product}
+              onError={onError}
+            />
+          ))}
+        </ul>
+      )}
     </>
   );
 };
