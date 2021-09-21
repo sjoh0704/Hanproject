@@ -8,7 +8,8 @@ const productSchema = new Mongoose.Schema({
     description: {type: String, required: true},
     buyer_id: Number,
     fileurl: Array,
-}, {versionKey: false},{timestamps: true});
+}, {versionKey: false}
+,{timestamps: true});
 
 useVirtualId(productSchema);
 const Product = Mongoose.model('Product', productSchema);

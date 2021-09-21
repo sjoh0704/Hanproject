@@ -60,13 +60,13 @@ const PrAdd = ({ FileInput, productService }) => {
     setProduct(product => {
       return {
         ...product,
-        fileurl: fileurl,
+        fileurl: url,
       };
     });
   }, [error, url]);
 
   const onChange = event => {
-    console.log("pr", product);
+    console.log("pr", product, event);
     const { name, value } = event.target;
     setProduct({ ...product, [name]: value });
   };

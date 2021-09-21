@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Link, useHistory } from "react-router-dom";
+import parseDate from "../../util/date";
 
 const Products = memo(({ product, productService, onError, oneproduct }) => {
   const history = useHistory();
@@ -7,12 +8,15 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
     id,
     buyer_id,
     // seller_id,
+    createdAt,
     fileurl,
     finishdate,
     name,
     price,
     description,
   } = product;
+  const date = createdAt;
+  console.log(date);
   const path = "/" + id;
   const gotoProductadd = product => {
     history.push({
@@ -26,7 +30,6 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
       .then(product => gotoProductadd(product))
       .catch(onError);
   };
-
   const refresh = () => {
     window.location.replace("/");
   };
@@ -38,7 +41,6 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
     productService.removeProduct(id); // id 찾아서 그 상품 삭제
     setTimeout(refresh, 200);
   };
-
   return (
     <>
       <section className="card">
@@ -54,7 +56,9 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
             );
           })}
           <div className="card-body">
-            <h5 className="card-title">{name}</h5>
+            <h5 className="card-title">
+              {name} {parseDate(createdAt)}
+            </h5>
 
             {(oneproduct && (
               <>
