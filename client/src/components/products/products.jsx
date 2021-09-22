@@ -24,6 +24,7 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
       state: { products: product },
     });
   };
+
   const onClick = event => {
     productService
       .getProducts(id) // id에 맞는 상품 들고오기
@@ -57,7 +58,7 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
           })}
           <div className="card-body">
             <h5 className="card-title">
-              {name} {parseDate(createdAt)}
+              {name} - {parseDate(createdAt)}
             </h5>
 
             {(oneproduct && (

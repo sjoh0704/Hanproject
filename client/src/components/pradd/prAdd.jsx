@@ -123,10 +123,12 @@ const PrAdd = ({ FileInput, productService }) => {
         {historyState.name ? (
           ""
         ) : (
-          <FileInput type="text" onFileChange={onFileChange} />
+          <>
+            <FileInput type="text" onFileChange={onFileChange} />
+            <p>한번 등록된 상품 사진과 금액은 수정이 불가능합니다.</p>
+          </>
         )}
 
-        <p>한번 등록된 상품 사진과 금액은 수정이 불가능합니다.</p>
         <p>현재 등록된 이미지</p>
         {product.fileurl &&
           product.fileurl.map(url => {
