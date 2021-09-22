@@ -6,6 +6,7 @@ const productSchema = new Mongoose.Schema({
     name: {type: String, required: true},
     price: {type: Number, required: true},
     description: {type: String, required: true},
+    finish: {type : Boolean, default: false},
     buyer_id: Number,
     fileurl: Array,
 },{timestamps: true , versionKey: false}
@@ -50,11 +51,9 @@ export async function updateplus(id, buyer_id, price ){ // price 받아서 10% �
     return Product.findByIdAndUpdate(id, {price:parseInt(price*1.1),buyer_id},{ returnOriginal : false});
 }
 
-export async function update(id, fileurl, name,price, description){ // 상품 수정
-    console.log('fileurl,,', fileurl, 'anaana',name, 'desac', description);
-    return Product.findByIdAndUpdate(id, {fileurl,name,price,description}, { returnOriginal : false});
-
-
+export async function update(id, fileurl, name,price, description, finish){
+    console.log('넘어온거 확인', finish); // 상품 수정
+    return Product.findByIdAndUpdate(id, {fileurl,name,price,description, finish}, { returnOriginal : false});
 }
 export async function remove(id){ // 상품 삭제
     return Product.findByIdAndDelete(id)    

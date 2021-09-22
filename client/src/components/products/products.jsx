@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import parseDate from "../../util/date";
 
@@ -10,13 +10,12 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
     // seller_id,
     createdAt,
     fileurl,
-    finishdate,
+    finish,
     name,
     price,
     description,
   } = product;
-  const date = createdAt;
-  console.log(date);
+
   const path = "/" + id;
   const gotoProductadd = product => {
     history.push({
@@ -31,6 +30,13 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
       .then(product => gotoProductadd(product))
       .catch(onError);
   };
+  const finished = { id: id, finish: true };
+  const onfinish = () => {
+    productService
+      .updateProduct(finished)
+      .then(pro => productService.postBuyer(pro))
+      .catch(onError);
+  };
   const refresh = () => {
     window.location.replace("/");
   };
@@ -42,6 +48,7 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
     productService.removeProduct(id); // id 찾아서 그 상품 삭제
     setTimeout(refresh, 200);
   };
+
   return (
     <>
       <section className="card">
@@ -57,17 +64,15 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
             );
           })}
           <div className="card-body">
-            <h5 className="card-title">
-              {name} - {parseDate(createdAt)}
-            </h5>
+            <h5 className="card-title">{name}</h5>
 
             {(oneproduct && (
               <>
                 <span className="card-text">{price}</span>
-                <h3> - buyer_id : {buyer_id}</h3>
-                <button onClick={Plus}>
-                  {parseInt(price * 1.1)}원에 입찰하기
-                </button>
+                <h3>
+                  {" "}
+                  - buyer_id : {(buyer_id && buyer_id) || "현재 입찰자 없음"}
+                </h3>
               </>
             )) || (
               <span>
@@ -79,14 +84,25 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
             <p className="card-text">
               <small className="text-muted">{description}</small>
             </p>
-            <span>종료시간 {finishdate}</span>
+            <span>
+              {finish == false && parseDate(createdAt).length == 27
+                ? onfinish()
+                : parseDate(createdAt)}
+            </span>
           </div>
         </Link>
       </section>
+      {finish == false ? (
+        <>
+          <button onClick={Plus}>{parseInt(price * 1.1)}원에 입찰하기</button>
+          <button onClick={remove}>삭제하기</button>
 
-      <button onClick={remove}>삭제하기</button>
+          <button onClick={onClick}>상품 수정하기</button>
+        </>
+      ) : (
+        ""
+      )}
 
-      <button onClick={onClick}>상품 수정하기</button>
       <hr />
     </>
   );

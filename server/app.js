@@ -1,5 +1,6 @@
 import express from 'express';
 import storeRouter from './router/store.js'
+import buyerRouter from './router/buyer.js'
 import cors from 'cors';
 import { config } from './config.js';
 import { connectDB } from './database/database.js';
@@ -12,6 +13,7 @@ app.use(cors());
 
 
 app.use('/store', storeRouter);
+app.use('/buyer', buyerRouter);
 
 connectDB().then(() => {
     console.log('init!');

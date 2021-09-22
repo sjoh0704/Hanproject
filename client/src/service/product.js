@@ -25,12 +25,20 @@ export default class ProductService {
         body: JSON.stringify({ name, price, description, fileurl, seller_id  }),
       });
     }
+
+    async postBuyer(product) {
+      const {buyer_id,seller_id, price, id} = product;
+      return this.http.fetch(`/buyer`, {
+        method: 'POST',
+        body: JSON.stringify({ buyer_id,seller_id, price, id  }),
+      });
+    }
   
     async updateProduct(product) {
-      const{name, price, description, seller_id, fileurl,id} = product;
+      const{name, price, description, seller_id, fileurl,id, finish} = product;
       return this.http.fetch(`/store/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ name, price, fileurl, description, seller_id  }),
+        body: JSON.stringify({ name, price, fileurl, description, seller_id, finish  }),
       
       });
     }
