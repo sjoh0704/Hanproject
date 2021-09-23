@@ -1,6 +1,5 @@
 import Mongoose from 'mongoose';
 import { useVirtualId } from '../database/database.js';
-import * as cron from 'node-cron';
 
 const productSchema = new Mongoose.Schema({
     seller_id: {type:Number, required: true},
@@ -32,6 +31,10 @@ export async function getById(id) {
 export async function getAllBysellerid(seller_id) {
     return Product.find({seller_id})
     }     // 셀러아이디 받아서 해당 셀러아이디 상품 검색
+
+export async function getAllByfinish() {
+    return Product.find({finish : false})
+    }
 
 
     
