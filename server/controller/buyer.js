@@ -13,5 +13,8 @@ export async function createProduct(req, res){ // 낙찰되어 경매 종료된 
     console.log(req.body);
     const {buyer_id,seller_id, price, product_id } = req.body;
     const product = await buyerRepository.create(buyer_id,seller_id, price, product_id);
+ 
     res.status(201).json(product);
+   
+
 }

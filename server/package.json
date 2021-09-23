@@ -18,6 +18,8 @@
     "express-validator": "^6.12.1",
     "mongodb": "^3.6.6",
     "mongoose": "^6.0.5",
+    "node-cron": "^3.0.0",
+    "node-schedule": "^2.0.0",
     "socket.io": "^4.2.0"
   },
   "devDependencies": {

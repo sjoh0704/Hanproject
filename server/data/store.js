@@ -1,5 +1,6 @@
 import Mongoose from 'mongoose';
 import { useVirtualId } from '../database/database.js';
+import * as cron from 'node-cron';
 
 const productSchema = new Mongoose.Schema({
     seller_id: {type:Number, required: true},
@@ -42,6 +43,7 @@ export async function create(seller_id, name, fileurl, price, description){
         description,
         fileurl,
     }).save()
+    
 //상품 생성하고 저장
 }
 

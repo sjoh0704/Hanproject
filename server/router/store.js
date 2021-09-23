@@ -2,6 +2,7 @@ import express from 'express';
 import { body } from 'express-validator';
 import * as storeController from '../controller/store.js';
 import { validate } from '../middleware/validator.js';
+import * as buyerController from '../controller/buyer.js';
 
 const router = express.Router();
 
@@ -21,13 +22,19 @@ const validateProduct = [
 
 router.get('/', storeController.getProducts);
 
+router.get('/bid', buyerController.getProducts);
+
 router.get('/:id', storeController.getProduct);
 
-router.post('/productadd', validateProduct, storeController.createProduct)
+
+router.post('/', validateProduct, storeController.createProduct)
+
+router.post('/bid', buyerController.createProduct)
 
 router.put('/:id', storeController.updateProduct)
 
 router.put('/plus/:id', storeController.plusProduct)
 
 router.delete('/:id',storeController.removeProduct)
+
 export default router;

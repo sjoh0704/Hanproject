@@ -24,6 +24,7 @@ export async function createProduct(req, res){ // 상품생성
     const {seller_id,name, price, fileurl, description } = req.body;
     const product = await storeRepository.create(seller_id,name, fileurl, price, description);
     res.status(201).json(product);
+    
 }
 
 export async function plusProduct(req, res){ // 가격 10%인상 buyer_id 전달

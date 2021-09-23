@@ -45,8 +45,9 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
     productService.plusProduct(id, buyer_id); // 입찰시 금액 10% 추가
   };
   const remove = async () => {
+    console.log("타입은?", typeof id);
     productService.removeProduct(id); // id 찾아서 그 상품 삭제
-    setTimeout(refresh, 200);
+    setTimeout(refresh, 20000);
   };
 
   return (
@@ -73,6 +74,9 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
                   {" "}
                   - buyer_id : {(buyer_id && buyer_id) || "현재 입찰자 없음"}
                 </h3>
+                <button onClick={Plus}>
+                  {parseInt(price * 1.1)}원에 입찰하기
+                </button>
               </>
             )) || (
               <span>
@@ -94,7 +98,6 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
       </section>
       {finish == false ? (
         <>
-          <button onClick={Plus}>{parseInt(price * 1.1)}원에 입찰하기</button>
           <button onClick={remove}>삭제하기</button>
 
           <button onClick={onClick}>상품 수정하기</button>
