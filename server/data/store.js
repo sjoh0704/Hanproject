@@ -5,6 +5,7 @@ const productSchema = new Mongoose.Schema({
     seller_id: {type:Number, required: true},
     name: {type: String, required: true},
     price: {type: Number, required: true},
+    area: {type: String, required:true},
     description: {type: String, required: true},
     finish: {type : Boolean, default: false},
     buyer_id: Number,
