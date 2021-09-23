@@ -39,13 +39,14 @@ export async function getAllByfinish() {
 
 
     
-export async function create(seller_id, name, fileurl, price, description){
+export async function create(seller_id, name, fileurl, price, description, area){
     return new Product({
         seller_id, 
         name, 
         price, 
         description,
         fileurl,
+        area,
     }).save()
     
 //상품 생성하고 저장

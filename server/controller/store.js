@@ -37,8 +37,8 @@ export async function getProduct(req, res) { //해당 id 상품
 
 export async function createProduct(req, res){
     
-    const {seller_id,name, price, fileurl, description } = req.body;
-    const product = await storeRepository.create(seller_id,name, fileurl, price, description);
+    const {seller_id,name, price, fileurl, description, area } = req.body;
+    const product = await storeRepository.create(seller_id,name, fileurl, price, description, area);
     res.status(201).json(product);
     
 }
