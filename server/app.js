@@ -3,7 +3,6 @@ import storeRouter from './router/store.js'
 import cors from 'cors';
 import { config } from './config.js';
 import { connectDB } from './database/database.js';
-import { Server } from 'socket.io';
 import { initSocket } from './connection/socket.js';
 import * as cron from 'node-cron';
 

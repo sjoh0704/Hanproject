@@ -24,12 +24,15 @@ router.get('/', storeController.getProducts);
 
 router.get('/bid', buyerController.getProducts);
 
+router.get('/bid/:id', buyerController.getProduct);
+
 router.get('/:id', storeController.getProduct);
 
 
 router.post('/', validateProduct, storeController.createProduct)
 
 router.post('/bid', buyerController.createProduct)
+
 
 router.put('/:id', storeController.updateProduct)
 

@@ -21,9 +21,9 @@ export async function getAll() {
 
 
 
-// export async function getById(id) {
-//     return Product.findById(id);
-//     }  // 상품 아이디 받아서 해당 상품 검색
+export async function getById(id) {
+    return Buyer.findById(id);
+    }  // 상품 아이디 받아서 해당 상품 검색
 
 export async function getAllBybuyerid(id) {
     return Buyer.find({id})

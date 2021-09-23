@@ -20,7 +20,7 @@ export default class ProductService {
   
     async postProduct(product) {
       const {name, price, description, seller_id, fileurl} = product;
-      return this.http.fetch(`/store/productadd`, {
+      return this.http.fetch(`/store`, {
         method: 'POST',
         body: JSON.stringify({ name, price, description, fileurl, seller_id  }),
       });
