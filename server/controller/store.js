@@ -11,17 +11,6 @@ export async function getProducts(req, res) { // seller_Id가 없으면 전체�
 }
 
 
-export async function updateProducts(req, res){ // 상품수정
-    console.log('fㅁㄴ암ㄴㅇㅁㄴㅇ',req);
-    const {id,name, price, fileurl, description } = req;
-    const finish = true
-    const product = await storeRepository.getById(id);
-    if(!product){
-        return res.status(404).json({ message: `Pr not found: ${id}` });
-    }
-    const updated = await storeRepository.update(id, fileurl, name, price, description, finish);
-    res.status(200).json(updated);
-}
 
 
 export async function getProduct(req, res) { //해당 id 상품
@@ -59,13 +48,13 @@ export async function plusProduct(req, res){ // 가격 10%인상 buyer_id 전달
 
 export async function updateProduct(req, res){ // 상품수정
     const id = req.params.id
-    const {fileurl, name,price,description, finish} = req.body;
+    const {fileurl, name,price,description, finish, area} = req.body;
     const product = await storeRepository.getById(id);
     console.log('body 확인', finish);
     if(!product){
         return res.status(404).json({ message: `Pr not found: ${id}` });
     }
-    const updated = await storeRepository.update(id, fileurl, name, price, description, finish);
+    const updated = await storeRepository.update(id, fileurl, name, price, description, finish, area);
     res.status(200).json(updated);
 }
 
@@ -88,4 +77,17 @@ export async function getfinish() { // 상품들 받아오고 그 중 경매시�
     storeRepository.getAllByfinish().then(data => {data.map((da) => {
         parseDate(da.createdAt).length != 34 ? updateProducts(da):'';
     })});
+}
+
+
+export async function updateProducts(req, res){ // finish 수정용
+    console.log('fㅁㄴ암ㄴㅇㅁㄴㅇ',req);
+    const {id,name, price, fileurl, description } = req;
+    const finish = true
+    const product = await storeRepository.getById(id);
+    if(!product){
+        return res.status(404).json({ message: `Pr not found: ${id}` });
+    }
+    const updated = await storeRepository.update(id, fileurl, name, price, description, finish);
+    res.status(200).json(updated);
 }
