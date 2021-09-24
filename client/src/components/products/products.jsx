@@ -30,13 +30,7 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
       .then(product => gotoProductadd(product))
       .catch(onError);
   };
-  const finished = { id: id, finish: true };
-  const onfinish = () => {
-    productService
-      .updateProduct(finished)
-      .then(pro => productService.postBuyer(pro))
-      .catch(onError);
-  };
+
   const refresh = () => {
     window.location.replace("/");
   };
@@ -45,7 +39,6 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
     productService.plusProduct(id, buyer_id); // 입찰시 금액 10% 추가
   };
   const remove = async () => {
-    console.log("타입은?", typeof id);
     productService.removeProduct(id); // id 찾아서 그 상품 삭제
     setTimeout(refresh, 200);
   };
@@ -88,11 +81,7 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
             <p className="card-text">
               <small className="text-muted">{description}</small>
             </p>
-            <span>
-              {finish == false && parseDate(createdAt).length == 27
-                ? onfinish()
-                : parseDate(createdAt)}
-            </span>
+            <span>{parseDate(createdAt)}</span>
           </div>
         </Link>
       </section>
