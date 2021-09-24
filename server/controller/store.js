@@ -75,7 +75,7 @@ export async function removeProduct(req, res){ //상품삭제
 
 export async function getfinish() { // 상품들 받아오고 그 중 경매시간 3시간이 경과 후인데 클라이언트가 통신을 하지않아 finish가 false이면 true로 변경
     storeRepository.getAllByfinish().then(data => {data.map((da) => {
-        parseDate(da.createdAt).length != 34 ? updateProducts(da):'';
+        parseDate(da.createdAt).length == 34 ? '':updateProducts(da);
     })});
 }
 

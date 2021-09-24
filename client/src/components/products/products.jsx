@@ -47,7 +47,7 @@ const Products = memo(({ product, productService, onError, oneproduct }) => {
   const remove = async () => {
     console.log("타입은?", typeof id);
     productService.removeProduct(id); // id 찾아서 그 상품 삭제
-    setTimeout(refresh, 20000);
+    setTimeout(refresh, 200);
   };
 
   return (
